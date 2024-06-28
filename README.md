@@ -108,3 +108,5 @@ $ npm i --save-dev @types/bcryptjs
 https://docs.nestjs.com/security/authentication#jwt-token
 
 Estándar para comunicación de forma pasiva entre el front y el back
+
+A la hora de usar los tokens, en postman vamos a la pestaña de Auth y seleccionamos "Bearer token"
