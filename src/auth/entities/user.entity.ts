@@ -4,7 +4,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 export class User {
   //! Prop es como Column cuando usamos postgres
 
-  // _id: string, mongo coloca esto automáticamente
+  _id?: string; //se descomenta para usarlo en el jwt al registrar un usuario
+
   @Prop({ required: true })
   name: string;
 
