@@ -55,3 +55,19 @@ services:
 # docker
 $ docker compose up -d
 ```
+
+## Conectar nest con mongo
+https://docs.nestjs.com/techniques/mongodb
+
+```bash
+# mongoose
+$ npm i @nestjs/mongoose mongoose
+```
+
+Copiar .env.template a .env y usar la conexión correcta
+
+Para las varaibles de entorno
+```bash
+# mongoose
+$ npm i @nestjs/config
+```
