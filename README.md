@@ -57,6 +57,7 @@ $ docker compose up -d
 ```
 
 ## Conectar nest con mongo
+
 https://docs.nestjs.com/techniques/mongodb
 
 ```bash
@@ -71,3 +72,7 @@ Para las varaibles de entorno
 # mongoose
 $ npm i @nestjs/config
 ```
+
+## Usar mongo
+
+Primero debemos crear la base de datos en mongo. en las .env podemos luego del puerto colocar /nombre_db
