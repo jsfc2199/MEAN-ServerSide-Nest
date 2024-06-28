@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  db:
+    container_name: mean-db #nombre del contenedor que tendremos
+    image: mongo:5.0.16 #imagen de docker y version que usaremos
+    volumes: #persistir la data
+      - ./mongo:/data/db #grabamos la data en este directorio
+    ports: #montamos el contendor para que la imagen funcione
+      - 27017:27017 #mapeamos el puerto 27017 de mi equipo en el puerto 27017 del contenedor
+    restart: always #cada que se reinicie la bd la base de datos este arriba
