@@ -102,3 +102,9 @@ app.useGlobalPipes(
 $ npm i bcryptjs
 $ npm i --save-dev @types/bcryptjs
 ```
+
+## JWT 
+
+https://docs.nestjs.com/security/authentication#jwt-token
+
+Estándar para comunicación de forma pasiva entre el front y el back

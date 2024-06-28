@@ -12,12 +12,15 @@ import { Model } from 'mongoose';
 
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './interfaces/jwt.payload';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>,
+    private jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -57,10 +60,10 @@ export class AuthService {
     if(!bcryptjs.compareSync(password, user.password)) throw new UnauthorizedException('Not valid credentials - password')
 
     const {password:_, ...rest} = user.toJSON()
-    //TODO token de acceso
+    //token de acceso
     return {
       user: rest,
-      token: 'ABCDE'
+      token: this.getJWT({id: user.id})
     }
   }
 
@@ -78,5 +81,11 @@ export class AuthService {
 
   remove(id: number) {
     return `This action removes a #${id} auth`;
+  }
+
+  //se genera token con el servicio propio de jwt
+  getJWT(payload: JwtPayload ){
+    const token = this.jwtService.sign(payload)
+    return token;
   }
 }
