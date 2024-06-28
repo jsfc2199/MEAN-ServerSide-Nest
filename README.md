@@ -94,3 +94,11 @@ app.useGlobalPipes(
       forbidNonWhitelisted: true,
     })
   )
+```
+
+## Encriptar contraseña
+```bash
+# bcrypts js
+$ npm i bcryptjs
+$ npm i --save-dev @types/bcryptjs
+```

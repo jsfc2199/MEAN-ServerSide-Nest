@@ -1,33 +1,47 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
 
+import * as bcryptjs from 'bcryptjs';
+
 @Injectable()
 export class AuthService {
   constructor(
-     @InjectModel(User.name) 
-     private userModel: Model<User>,
-  ){}
+    @InjectModel(User.name)
+    private userModel: Model<User>,
+  ) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {    
+  async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      //Forma rápida de crear un usuario
-    const user = new this.userModel(createUserDto)
-    return user.save();
-    //TODO 1 . Encriptar contraseña
+      // 1 . Encriptar contraseña
+      const { password, ...userData } = createUserDto;
 
-    //TODO 2. Guardar usuario
+      const newUser = new this.userModel({
+        password: bcryptjs.hashSync(password, 10),
+        ...userData,
+      });
 
-    //TODO 3. Generar JWT
+      //TODO 2. Guardar usuario
 
+      //TODO 3. Generar JWT
+
+
+      await newUser.save();
+      const {password:_, ...user} = newUser.toJSON() //del retorno borramos la contraseña para que no sea visible el hash
+
+      return user
     } catch (error) {
-      if(error. code === 11000) {
-        throw new BadRequestException(`${createUserDto.email} already exists`)
+      if (error.code === 11000) {
+        throw new BadRequestException(`${createUserDto.email} already exists`);
       }
-      throw new InternalServerErrorException('Something bad happen')
+      throw new InternalServerErrorException('Something bad happen');
     }
   }
 
