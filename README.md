@@ -76,3 +76,21 @@ $ npm i @nestjs/config
 ## Usar mongo
 
 Primero debemos crear la base de datos en mongo. en las .env podemos luego del puerto colocar /nombre_db
+
+## Dto
+
+Para definir correctamente el como lucirán los dto
+```bash
+# class validator
+$ npm i class-validator class-transformer
+```
+
+Se debe configurar de manera global
+
+```typescript
+app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    })
+  )
