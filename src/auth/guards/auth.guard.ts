@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
         }
       );
 
-      const user = this.authService.findUserById(payload.id)
+      const user = await this.authService.findUserById(payload.id)
       if(!user) throw new UnauthorizedException('User does not exists');
       if(!(await user).isActive) throw new UnauthorizedException('User is not active');
 
